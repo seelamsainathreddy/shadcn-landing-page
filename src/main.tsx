@@ -18,7 +18,7 @@ const router = createBrowserRouter([
     path: '/console',
     element: <LayoutSidebar children={<ChatArea />} />,
   },
-], { basename: '/nutritionalai' });
+]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>

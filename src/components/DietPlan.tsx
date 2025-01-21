@@ -6,7 +6,7 @@ export interface DietPlanI {
   breakfast: string; // Meal for breakfast
   lunch: string; // Meal for lunch
   dinner: string;
-  explanation: string // Meal for dinner
+  explanation: string ;// Meal for dinner
 
 }
 

@@ -23,11 +23,9 @@ export const About = () => {
                 Company
               </h2>
               <p className="text-xl text-muted-foreground mt-4">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit
-                amet, consectetur adipiscing elit.
+                At NutritionalAI, we empower healthcare professionals with cutting-edge AI tools to deliver personalized and effective nutritional plans. Our custom-built AI analyzer leverages advanced algorithms and the latest nutritional science to provide accurate insights tailored to individual needs.
+                We bridge the gap between technology and healthcare, enabling doctors and nutritionists to make data-driven decisions that improve patient outcomes. With a focus on innovation, reliability, and user-friendly solutions, we strive to support professionals in transforming lives through smarter nutrition.
+                Join us on our mission to redefine the future of health and wellness.
               </p>
             </div>
 

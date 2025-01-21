@@ -46,52 +46,41 @@ import {
   Textarea
 } from "@/components/ui/textarea"
 import { DietPlanI } from "./DietPlan";
+import { patientFormSchema, type PatientFormValues } from "@/lib/schemas"
 
 type Status = {
     isLoading: boolean;
     visibleSpace: boolean;
   };
 
-const formSchema = z.object({
-  patientName: z.string(),
-  age: z.string(),
-  gender: z.string(),
-  height: z.string(),
-  weight: z.string(),
-  existingConditions: z.array(z.string()),
-  allergies: z.array(z.string()),
-  currentMedication: z.array(z.string()),
-  physicalActivityLevel: z.string(),
-  dietaryPreferences: z.string(),
-  smokingAlcoholConsumption: z.array(z.string()),
-  weightGoal: z.string(),
-  symptomManagement: z.array(z.string()),
-});
-
-type FormData = z.infer<typeof formSchema>;
+type FormData = z.infer<typeof patientFormSchema>;
 
 interface ProfileFormProps {
-    setDietPlan: (data : DietPlanI) => void;
+
+    dietPlanHistory: DietPlanI[];
+    setDietPlan: (data : DietPlanI[]) => void;
     setUpdateVariables: (data : Status) => void;
     onGenerate: () => void;
+    setPatientData : (data: FormData) => void;
+    handleSubmit : () => void;
 
   }
 
-const  ProfileForm: React.FC<ProfileFormProps> = ({setDietPlan, setUpdateVariables, onGenerate}) => {
+const  ProfileForm: React.FC<ProfileFormProps> = ({setPatientData, handleSubmit}) => {
  
-  const form = useForm<FormData>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<PatientFormValues>({
+    resolver: zodResolver(patientFormSchema),
     defaultValues: {
-      patientName: "",
-      age: "",
-      gender: "",
-      height: "",
-      weight: "",
-      existingConditions: [],
-      allergies: [],
-      currentMedication: [],
+      patientName: "Marry",
+      age: "28",
+      gender: "Female",
+      height: "5.5",
+      weight: "60",
+      existingConditions: ['diabatis'],
+      allergies: ['lactose Intolerence'],
+      currentMedication: ['NA'],
       physicalActivityLevel: "",
-      dietaryPreferences: "",
+      dietaryPreferences: "Veg",
       smokingAlcoholConsumption: [],
       weightGoal: "",
       symptomManagement: [],
@@ -100,43 +89,8 @@ const  ProfileForm: React.FC<ProfileFormProps> = ({setDietPlan, setUpdateVariabl
 
 const onSubmit = async (values: FormData) => {
 
-    setUpdateVariables?.({
-        isLoading : true,
-        visibleSpace : false
-      });
-
-    console.log("Submitted values:", values);
-    try {
-    const response = await fetch("https://pragmatic-armor-441322-c5.el.r.appspot.com/api/dietPlan/", {
-        method: 'POST', // Change to POST
-        headers: {
-          'Content-Type': 'application/json', // Set the content type to JSON
-        },
-        body: JSON.stringify(values), // Send the message as the request body
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      // Parse the response as JSON
-      const data = await response.json();
-      console.log("Received data:", data);
-
-      // Update state with the received data
-      setDietPlan?.(data);
-
-      // Call the onGenerate function to scroll
-      onGenerate?.();
-    } catch (err) {
-      //setError(err.message); // Handle errors
-      console.log("handle error for validation")
-    } finally {
-      setUpdateVariables({
-        isLoading : false,
-        visibleSpace : true
-      });
-    }
+    setPatientData(values);
+    handleSubmit();
     }
 
   return (
